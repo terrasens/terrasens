@@ -24,6 +24,11 @@ SECRET_KEY = 'django-insecure-gnw6muro9%t(13503jn0gm$#oe&(z^gso&cgtanonr0&&0qw&5
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# ==========================  JUST for render.com ========================== #
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+# Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
+# and renames the files with unique names for each version to support long-term caching
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ALLOWED_HOSTS = ["*"]
 
@@ -36,12 +41,14 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'main'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
